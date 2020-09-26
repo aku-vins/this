@@ -1,0 +1,62 @@
+const { RichEmbed } = require("discord.js");
+const { readdirSync } = require("fs");
+
+module.exports.run = (bot, message, args) => {
+
+	const embed = new RichEmbed()
+		.setColor("#2C2F33")
+		.setAuthor(`${bot.user.username} Help`, bot.user.displayAvatarURL)
+		.setFooter(`Requested by ${message.author.tag} at`, message.author.displayAvatarURL)
+  .setThumbnail(bot.user.displayAvatarURL)
+		.setTimestamp()
+	if (args[0]) {
+		let command = args[0];
+		let cmd;
+		if (bot.commands.has(command)) {
+			cmd = bot.commands.get(command);
+		}
+		else if (bot.aliases.has(command)) {
+			cmd = bot.commands.get(bot.aliases.get(command));
+		}
+		if(!cmd) return message.channel.send(`<@${message.author.id}> | \`\`\`Error: \`I Can't Find This Command\` \ntype: \`sonichelp\` For get Sonic list commands\`\`\``);
+		command = cmd.help;
+		embed.setTitle(`${command.name.slice(0, 1).toUpperCase() + command.name.slice(1)} command help`);
+		embed.setDescription([
+			`❯ **Name:** ${command.name.slice(0, 1).toUpperCase() + command.name.slice(1)}`,
+			`❯ **Cmd Desc:** ${command.description || "No Description provided."}`,
+			`❯ **How to use?:** ${command.usage ? `\`${bot.config.prefix}${command.name} ${command.usage}\`` : "No Usage"} `,
+			`❯ **Aliases:** ${command.aliases ? command.aliases.join(", ") : "None"}`,
+			`❯ **Category:** ${command.category ? command.category : "General" || "Misc"}`,
+		].join("\n"));
+
+		return message.channel.send(embed);
+	}
+	const categories = readdirSync("./commands/");
+	embed.setDescription([
+		`Hello! ${message.author.tag}
+my prefix: \`sonic\`, \`s!\`, or mentions me
+**:warning: Remind**: Don't include \`<>\`, \`[]\`, \`{}\`, \`()\``,
+	].join("\n"));
+	categories.forEach(category => {
+		const dir = bot.commands.filter(c => c.help.category.toLowerCase() === category.toLowerCase());
+		const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1);
+   
+		try {
+			if (dir.size === 0) return;
+			if (bot.config.owners.includes(message.author.id)) embed.addField(`❯ ${capitalise}`, dir.map(c => `\`${c.help.name}\``).join(", "));
+			else if (category !== "Developer") embed.addField(`❯ ${capitalise}`, dir.map(c => `\`${c.help.name}\``).join(", "));
+		}
+		catch (e) {
+			console.log(e);
+		}
+	});
+	return message.channel.send(embed);
+};
+
+module.exports.help = {
+	name: "help",
+	aliases: ["h"],
+	description: "Help command to show the commands",
+	usage: "(command name)",
+	category: "Info",
+};

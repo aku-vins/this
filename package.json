@@ -1,0 +1,53 @@
+{
+  "name": "sonic",
+  "version": "12.2.0",
+  "description": "An empty template to get you started when making a new bot. Now with MongoDB support!",
+  "main": "sonic.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "keywords": [
+    "discord.js",
+    "discord",
+    "bot",
+    "v12",
+    "lang",
+    "language",
+    "tempalte",
+    "ready",
+    "configurable",
+    "mongo",
+    "mongodb",
+    "mongoose",
+    "database",
+    "cooldown"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.2.0",
+    "mongoose": "^5.9.25",
+    "path": "^0.12.7",
+    "fs": "^0.0.2",
+    "log-symbols": "^4.0.0",
+    "quick.db": "^7.1.1",
+    "emojilib": "^2.4.0",
+    "googleapis": "^58.0.0",
+    "common-tags": "^1.8.0",
+    "node-fetch": "^2.6.0",
+    "request": "^2.88.2",
+    "give-me-a-joke": "^0.3.2",
+    "giphy-api": "^2.0.1",
+    "hastebin-gen": "^2.0.5",
+    "js-beautify": "^1.13.0",
+    "cheerio": "^0.22.0",
+    "got": "^11.5.1",
+    "querystring": "^0.2.0",
+    "snekfetch": "^4.0.4",
+    "random-puppy": "^1.1.0",
+    "request-promise": "^4.2.6",
+    "axios": "^0.19.2",
+    "node-superfetch": "^0.1.10",
+    "imageapi.js": "^1.0.11"
+  }
+}
